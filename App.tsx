@@ -9,19 +9,20 @@ import {
   View,
 } from 'react-native';
 
-
+import Prinipal from './src/Principal';
 function App(): JSX.Element {
 
 
   return (
-    <SafeAreaView >
-      <Text>App Chat Wave </Text>
+    <SafeAreaView style={styles.mar} >
+     {/* <Text>App Chat Wave </Text> */}
+     <Prinipal></Prinipal>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
- 
+  mar:{flex:1}
 });
 
 export default App;
