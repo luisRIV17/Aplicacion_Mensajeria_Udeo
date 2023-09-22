@@ -15,7 +15,7 @@ function App(): JSX.Element {
 
   return (
     <SafeAreaView >
-      <Text>App Chat Wave </Text>
+      <Text>App Chat Wave Hola</Text>
     </SafeAreaView>
   );
 }
