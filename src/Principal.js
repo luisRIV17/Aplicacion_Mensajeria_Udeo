@@ -1,26 +1,44 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { ScrollView, View,Button, StyleSheet, Text, Pressable, FlatList,Image } from 'react-native'
 import Encabezado from './Encabezado'
 import VentanaChat from './VentanaChat'
+import axios from 'axios';
 const Principal = () => {
-    
+    const [salas,setSalas]= useState([])
+    const persona='1001'
+
+    useEffect(()=>{
+        const pre=async()=>{
+          const url="http://172.16.1.144:82/inicio/listsalas?idpersona="+persona
+          const respuesta =await axios.get(url)
+              const resultado = await respuesta.data
+              setSalas(resultado)
+        }
+       pre();
+      },[])
+
   return (
     <View style={style.mar}>
         <Encabezado/> 
     {/* Contenedor del chat */}
     <View style={style.mar}>
-    <ScrollView style={style.mar1}>
+    <View style={style.mar1}>
   
-    <VentanaChat></VentanaChat>
-    <VentanaChat></VentanaChat>
-    <VentanaChat></VentanaChat>
-    <VentanaChat></VentanaChat>
-    <VentanaChat></VentanaChat>
-    <VentanaChat></VentanaChat>
-    <VentanaChat></VentanaChat>
-    <VentanaChat></VentanaChat>
+    <FlatList
+    data={salas}
+    keyExtractor={item=> item.id_sala}
+    renderItem={({item})=>{
+        return(
+            <VentanaChat
+            item={item}
+            persona={persona}
+            ></VentanaChat>
+        )
+    }}
+
+    ></FlatList>
        
-    </ScrollView>
+    </View>
     </View>
 
     {/* Botones en la parte inferior */}

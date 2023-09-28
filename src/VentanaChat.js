@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import { ScrollView, View,Button, StyleSheet, Text, Pressable, FlatList, Image, TouchableOpacity } from 'react-native'
 const chats = [
     {
@@ -8,29 +8,36 @@ const chats = [
       lastMessage: 'Hola, ¿cómo estás?',
       lastMessageTime: '11:30 AM',
     },
-    {
-      id: 2,
-      profileImage: require('./Imagenes/1.png'),
-      username: 'Usuario 2',
-      lastMessage: '¡Todo bien! ¿Y tú?',
-      lastMessageTime: '11:35 AM',
-    },
+   
     // Agrega más objetos de chat según tus necesidades
   ];
-const VentanaChat = () => {
-    
+  import axios from 'axios';
+const VentanaChat = ({item,persona}) => {
+  const [detalle,setDetalle]= useState([])
+const {id_sala}=item;
+
+  useEffect(()=>{
+      const pre=async()=>{
+        const url="http://172.16.1.144:82/inicio/listdetamen?idsala="+item.id_sala+"&idpersona="+persona
+        const respuesta =await axios.get(url)
+            const resultado = await respuesta.data
+            setDetalle(resultado)
+      }
+     pre();
+    },[])
+const {nombresala,ultimomensaje,fecha,hora,envia}=detalle
   return (
     <View>
-    {chats.map((chat) => (
-        <TouchableOpacity key={chat.id} style={style.contchat} >
-                <Image source={chat.profileImage} style={style.imge} />
+   
+        <TouchableOpacity  style={style.contchat} >
+                <Image source={require('./Imagenes/1.png')} style={style.imge} />
                 <View style={style.cuerpo}>
-                  <Text style={style.usu}>{chat.username}</Text>
-                  <Text style={style.mensaje}>{chat.lastMessage}</Text>
+                  <Text style={style.usu}>{detalle.nombresala}</Text>
+                  <Text style={style.mensaje}>{detalle.ultimomensaje}</Text>
                 </View>
-                <Text style={style.hora}>{chat.lastMessageTime}</Text>
+                <Text style={style.hora}>{detalle.fecha}</Text>
               </TouchableOpacity>
-        ))}
+      
 </View>
   )
 }
