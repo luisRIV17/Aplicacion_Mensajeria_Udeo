@@ -18,7 +18,7 @@ const {id_sala}=item;
 
   useEffect(()=>{
       const pre=async()=>{
-        const url="http://172.16.1.144:82/inicio/listdetamen?idsala="+item.id_sala+"&idpersona="+persona
+        const url="http://192.168.0.17/inicio/listdetamen?idsala="+item.id_sala+"&idpersona="+persona
         const respuesta =await axios.get(url)
             const resultado = await respuesta.data
             setDetalle(resultado)

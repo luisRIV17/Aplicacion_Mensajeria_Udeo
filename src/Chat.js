@@ -1,124 +1,95 @@
 import React,{useState,useEffect} from 'react'
-import { View, FlatList, TextInput, TouchableOpacity, Text } from 'react-native';
+import { View, FlatList, TextInput, TouchableOpacity, Text,StyleSheet } from 'react-native';
 import { GiftedChat } from 'react-native-gifted-chat';
 import ImagePicker from 'react-native-image-picker';
 import AudioRecord from 'react-native-audio-record';
 import { NativeEventEmitter, NativeModules } from 'react-native';
 
 const Chat = () => {
-    const [messages, setMessages] = useState([]);
-    const [inputText, setInputText] = useState('');
-    const [audioRecording, setAudioRecording] = useState(false);
-  
-    useEffect(() => {
-      // Simula mensajes previamente cargados.
-      setMessages([
-        {
-          _id: 1,
-          text: '¡Hola!',
-          createdAt: new Date(),
-          user: {
-            _id: 2,
-            name: 'React Native Developer',
-          },
-        },
-        {
-          _id: 2,
-          text: '¡Hola! ¿En qué puedo ayudarte?',
-          createdAt: new Date(),
-          user: {
-            _id: 1,
-            name: 'Usuario',
-          },
-        },
-      ]);
-    }, []);
-  
-    const handleSend = (newMessages = []) => {
-      setMessages((prevMessages) => GiftedChat.append(prevMessages, newMessages));
-      setInputText('');
-    };
-  
-    const handlePickImage = () => {
-      const options = {
-        title: 'Selecciona una imagen',
-        storageOptions: {
-          skipBackup: true,
-          path: 'images',
-        },
-      };
-  
-      ImagePicker.showImagePicker(options, (response) => {
-        if (response.uri) {
-          const imageMessage = [
-            {
-              _id: Math.random().toString(36).substring(7),
-              image: response.uri,
-              createdAt: new Date(),
-              user: {
-                _id: 1,
-                name: 'Usuario',
-              },
-            },
-          ];
-          handleSend(imageMessage);
-        }
-      });
-    };
-  
-    const toggleAudioRecording = async () => {
-      if (audioRecording) {
-        const audioPath = await AudioRecord.stop();
-        const audioMessage = [
-          {
-            _id: Math.random().toString(36).substring(7),
-            audio: audioPath,
-            createdAt: new Date(),
-            user: {
-              _id: 1,
-              name: 'Usuario',
-            },
-          },
-        ];
-        handleSend(audioMessage);
-      } else {
-        AudioRecord.init();
-        AudioRecord.start();
-      }
-      setAudioRecording(!audioRecording);
-    };
-  
-    return (
-      <View style={{ flex: 1 }}>
-        <FlatList
-          inverted
-          data={messages}
-          keyExtractor={(message) => message._id.toString()}
-          renderItem={({ item }) => (
-            <Text style={{ padding: 10 }}>{item.text || 'Audio'}</Text>
-          )}
-        />
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <TouchableOpacity onPress={handlePickImage}>
-            <Text style={{ fontSize: 20, padding: 10 }}>📷</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={toggleAudioRecording}>
-            <Text style={{ fontSize: 20, padding: 10 }}>
-              {audioRecording ? 'Stop' : '🎤'}
-            </Text>
-          </TouchableOpacity>
-          <TextInput
-            style={{ flex: 1, fontSize: 16, padding: 10 }}
-            value={inputText}
-            onChangeText={(text) => setInputText(text)}
-            placeholder="Escribe un mensaje..."
-          />
-          <TouchableOpacity onPress={() => handleSend([{ text: inputText }])}>
-            <Text style={{ fontSize: 20, padding: 10 }}>Enviar</Text>
-          </TouchableOpacity>
+    
+      return (
+        <View style={styles.container}>
+          {/* Area de mensajes */}
+          <View style={styles.messageContainer}>
+            {/* Mensajes */}
+            <View style={styles.message}>
+              <Text style={styles.messageText}>Mensaje 1</Text>
+            </View>
+            <View style={styles.message}>
+              <Text style={styles.messageText}>Mensaje 2</Text>
+            </View>
+            {/* Puedes agregar más mensajes aquí */}
+          </View>
+    
+          {/* Área de entrada de texto */}
+          <View style={styles.inputContainer}>
+            <TextInput
+              placeholder="Escribe un mensaje..."
+              style={styles.textInput}
+            />
+            <TouchableOpacity style={styles.attachButton}>
+              <Text style={styles.buttonText}>Adjuntar Imagen</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.recordButton}>
+              <Text style={styles.buttonText}>Grabar Audio</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
-    );
-}
+      );
+    };
+    
+    const styles = StyleSheet.create({
+      container: {
+        flex: 1,
+        backgroundColor: '#f2f2f2',
+        paddingHorizontal: 16,
+        paddingVertical: 12,
+      },
+      messageContainer: {
+        flex: 1,
+        justifyContent: 'flex-end',
+      },
+      message: {
+        backgroundColor: '#007aff',
+        borderRadius: 8,
+        padding: 8,
+        marginBottom: 8,
+        alignSelf: 'flex-start',
+      },
+      messageText: {
+        color: 'white',
+      },
+      inputContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderTopWidth: 1,
+        borderColor: '#ccc',
+        paddingTop: 8,
+      },
+      textInput: {
+        flex: 1,
+        backgroundColor: 'white',
+        borderRadius: 8,
+        paddingHorizontal: 12,
+        paddingVertical: 8,
+        marginRight: 8,
+      },
+      attachButton: {
+        backgroundColor: '#007aff',
+        borderRadius: 8,
+        paddingVertical: 8,
+        paddingHorizontal: 12,
+      },
+      recordButton: {
+        backgroundColor: '#ff3b30',
+        borderRadius: 8,
+        paddingVertical: 8,
+        paddingHorizontal: 12,
+      },
+      buttonText: {
+        color: 'white',
+        fontWeight: 'bold',
+      },
+    });
 
 export default Chat

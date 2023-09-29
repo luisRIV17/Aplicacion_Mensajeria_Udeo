@@ -9,7 +9,7 @@ const Principal = ({setMostrarchat}) => {
 
     useEffect(()=>{
         const pre=async()=>{
-          const url="http://172.16.1.144:82/inicio/listsalas?idpersona="+persona
+          const url="http://192.168.0.17/inicio/listsalas?idpersona="+persona
           const respuesta =await axios.get(url)
               const resultado = await respuesta.data
               setSalas(resultado)
