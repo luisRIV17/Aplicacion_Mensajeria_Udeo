@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, TextInput } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, TextInput, Pressable,Image } from 'react-native';
 
 const contactsData = [
   { id: '1', name: 'Contacto ', phoneNumber: '+502 0000-0000', avatar: '' },
@@ -36,13 +36,18 @@ const ContactScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.topPanel}>
-        <TextInput
+      
+      <View style={styles.enca}>
+        
+        <Image source={ require('../2.jpg')} style={styles.imge}></Image>
+    <Text style={styles.titulo}>Chats</Text>
+  
+  <TextInput
           style={styles.searchInput}
           placeholder="Buscar..."
           placeholderTextColor="#FFFFFF"
         />
-      </View>
+    </View>
       <FlatList
         data={contactsData}
         keyExtractor={(item) => item.id}
@@ -85,7 +90,7 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     backgroundColor: '#141414',
     alignSelf: 'center',
-    width: '80%',
+    width: '65%',
   },
   contactItem: {
     flexDirection: 'row',
@@ -101,6 +106,36 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  enca:{
+    flexDirection: 'row',
+     justifyContent: 'space-between', 
+     alignItems: 'center', 
+     padding: 10,
+     backgroundColor:'#252525', 
+    paddingVertical: 10, 
+    borderBottomWidth: 1,
+    borderBottomColor: '#458488',
+},
+titulo:{
+    fontSize: 20, 
+    color:'white',
+    fontWeight: 'bold',
+   
+},
+btmenu:{
+    backgroundColor:'#02abbf',
+    padding:10
+ },
+ txbt:{
+     fontSize:15,
+ color:'white'
+ },
+ imge: {
+    width: 35,
+    height: 35,
+  marginRight:10
+    
   },
   avatarText: {
     fontSize: 18,
