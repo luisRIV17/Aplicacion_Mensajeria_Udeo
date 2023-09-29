@@ -1,51 +1,38 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
-import { View, Text,Keyboard, TouchableOpacity, SafeAreaView, ImageBackground, Image, TextInput, ScrollView, KeyboardAvoidingView } from 'react-native';
+import { View, Text,Keyboard, TouchableOpacity, SafeAreaView, ImageBackground, Image, TextInput, ScrollView, KeyboardAvoidingView, Modal } from 'react-native';
 import { mst } from '../styles/mst';
-import { BackHandler,backHandler } from 'react-native';
+import { BackHandler, back } from 'react-native';
+import Carousel from './Carousel';
+import Misslides from './Slides';
 
 const Landing = ({setModLandin}) => {
 
   const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
   const [inputStyle, setInputStyle] = useState(mst.inp);
+  const [modCarousel, setModCarousel] = useState(false)
   useEffect(() => {
-    const keyboardDidShowListener = Keyboard.addListener(
-      'keyboardDidShow',
-      () => {
-        setIsKeyboardOpen(true);
-        setInputStyle([mst.btnContainer, { marginTop:30 }]); // Cambia el estilo del input cuando se muestra el teclado
-      }
+    const backButtonHandler = () => {
+      setModLandin(false)
+      // Puedes mostrar una alerta, confirmar una acción o realizar otras acciones específicas.
+      // Si deseas prevenir la acción de retroceso predeterminada, puedes retornar true desde aquí.
+      return true; // Esto evitará que la acción de retroceso predeterminada ocurra.
+    };
+
+    // Agrega un listener para el evento de retroceso del botón de hardware
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      console.log("AAAAAAAAAAAAAAAAAAAA")
+      
     );
 
-    const keyboardDidHideListener = Keyboard.addListener(
-      'keyboardDidHide',
-      () => {
-        setIsKeyboardOpen(false);
-        setInputStyle(mst.btnContainer); // Restaura el estilo original del input cuando se oculta el teclado
-      }
-    );
-
-    return () => {
-      keyboardDidShowListener.remove();
-      keyboardDidHideListener.remove();
-    };
+    // Asegúrate de eliminar el listener cuando el componente se desmonte
+    return () => backHandler.remove();
   }, []);
-  console.log('Componente montado'); // Agrega esta línea
-  useEffect(() => {
-    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
-      console.log('Se presionó el botón de retroceso');
-      // Puedes realizar otras acciones aquí si lo deseas
-      return true; // Devuelve true para prevenir el comportamiento predeterminado de retroceso
-    });
 
-    // Limpia el event listener cuando el componente se desmonta
-    return () => {
-      backHandler.remove();
-    };
-  }, []);
 
   return (
-    <SafeAreaView >
+    <View >
     <ImageBackground
         source={require('../styles/img/back.jpg')}
         style={mst.Back}
@@ -76,14 +63,26 @@ const Landing = ({setModLandin}) => {
         </TextInput>
         <TouchableOpacity
          style={mst.btn}
+         onPress={()=>setModCarousel(true)}
         >
           <Text>Ingresar</Text>
         </TouchableOpacity>
 
+        <TouchableOpacity
+         style={mst.btn}
+         onPress={()=>setModLandin(false)}
+        >
+          <Text>Regresar</Text>
+        </TouchableOpacity>
        </View>
     </View>
-   
-   </SafeAreaView>
+    <Modal
+    visible={modCarousel}
+    >
+    <Misslides/>
+    </Modal>
+    
+   </View>
   );
 };
 
