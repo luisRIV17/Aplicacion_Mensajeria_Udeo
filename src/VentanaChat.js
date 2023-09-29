@@ -12,7 +12,7 @@ const chats = [
     // Agrega más objetos de chat según tus necesidades
   ];
   import axios from 'axios';
-const VentanaChat = ({item,persona}) => {
+const VentanaChat = ({item,persona,setMostrarchat}) => {
   const [detalle,setDetalle]= useState([])
 const {id_sala}=item;
 
@@ -29,7 +29,7 @@ const {nombresala,ultimomensaje,fecha,hora,envia}=detalle
   return (
     <View>
    
-        <TouchableOpacity  style={style.contchat} >
+        <TouchableOpacity  style={style.contchat} onPress={()=>setMostrarchat(true)} >
                 <Image source={require('./Imagenes/1.png')} style={style.imge} />
                 <View style={style.cuerpo}>
                   <Text style={style.usu}>{detalle.nombresala}</Text>

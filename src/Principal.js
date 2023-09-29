@@ -3,7 +3,7 @@ import { ScrollView, View,Button, StyleSheet, Text, Pressable, FlatList,Image } 
 import Encabezado from './Encabezado'
 import VentanaChat from './VentanaChat'
 import axios from 'axios';
-const Principal = () => {
+const Principal = ({setMostrarchat}) => {
     const [salas,setSalas]= useState([])
     const persona='1001'
 
@@ -32,6 +32,7 @@ const Principal = () => {
             <VentanaChat
             item={item}
             persona={persona}
+            setMostrarchat={setMostrarchat}
             ></VentanaChat>
         )
     }}
