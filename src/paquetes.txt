@@ -1,0 +1,1 @@
+npm install react-native-gifted-chat react-native-image-picker react-native-audio-record
