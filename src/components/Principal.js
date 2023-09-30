@@ -14,8 +14,6 @@ const contactsData = [
   { id: '10', name: 'Contacto ', phoneNumber: '+502 0000-0000', avatar: '' },
   { id: '11', name: 'Contacto ', phoneNumber: '+502 0000-0000', avatar: '' },
   { id: '12', name: 'Contacto ', phoneNumber: '+502 0000-0000', avatar: '' },
-  { id: '13', name: 'Contacto ', phoneNumber: '+502 0000-0000', avatar: '' },
-  { id: '14', name: 'Contacto ', phoneNumber: '+502 0000-0000', avatar: '' },
 ];
 
 const ContactScreen = ({ navigation }) => {
