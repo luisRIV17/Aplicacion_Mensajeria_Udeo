@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import {
   Modal,
   SafeAreaView,
@@ -10,21 +10,17 @@ import {
   View,
 } from 'react-native';
 
-import Prinipal from './src/Principal';
-import Chat from './src/Chat';
+import PrincipalM from './src/components/PrincipalM';
+import ChatM from './src/components/ChatM';
+
+import { BackHandler } from 'react-native';
+import MainStack from './navigation/MainStack';
+
 function App(): JSX.Element {
-const [mostrarchat,setMostrarchat] = useState(false);
-console.log(mostrarchat)
   return (
     <SafeAreaView style={styles.mar} >
-     {/* <Text>App Chat Wave </Text> */}
-    <Prinipal setMostrarchat={setMostrarchat}></Prinipal>
-
-    <Modal visible={mostrarchat}>
-    <Chat></Chat>
-    </Modal>
+    <MainStack/>
     </SafeAreaView>
-    
   );
 }
 

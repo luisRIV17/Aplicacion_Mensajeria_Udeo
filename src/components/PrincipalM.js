@@ -1,15 +1,18 @@
 import React, {useState, useEffect} from 'react'
 import { ScrollView, View,Button, StyleSheet, Text, Pressable, FlatList,Image } from 'react-native'
-import Encabezado from './Encabezado'
-import VentanaChat from './VentanaChat'
-import axios from 'axios';
-const Principal = ({setMostrarchat}) => {
+
+import EncabezadoM from './EncabezadoM'
+import VentanaChatM from './VentanaChatM'
+import axios from 'axios'
+
+
+const PrincipalM = ({navigation}) => {
     const [salas,setSalas]= useState([])
     const persona='1001'
 
     useEffect(()=>{
         const pre=async()=>{
-          const url="http://192.168.0.17/inicio/listsalas?idpersona="+persona
+          const url="http://172.16.1.144/inicio/listsalas?idpersona="+persona
           const respuesta =await axios.get(url)
               const resultado = await respuesta.data
               setSalas(resultado)
@@ -19,21 +22,21 @@ const Principal = ({setMostrarchat}) => {
 
   return (
     <View style={style.mar}>
-        <Encabezado/> 
+       <EncabezadoM/> 
     {/* Contenedor del chat */}
     <View style={style.mar}>
     <View style={style.mar1}>
   
-    <FlatList
+     <FlatList
     data={salas}
     keyExtractor={item=> item.id_sala}
     renderItem={({item})=>{
         return(
-            <VentanaChat
+           <VentanaChatM
             item={item}
             persona={persona}
-            setMostrarchat={setMostrarchat}
-            ></VentanaChat>
+            navigation={navigation}
+            ></VentanaChatM>
         )
     }}
 
@@ -44,7 +47,7 @@ const Principal = ({setMostrarchat}) => {
 
     {/* Botones en la parte inferior */}
     <View style={style.menu}>
-        <Pressable style={style.btmenu}>
+        <Pressable style={style.btmenu} >
             <Text style={style.txbt}>Contactos</Text>
         </Pressable>
         <Pressable>
@@ -89,4 +92,4 @@ color:'white'
 
 })
 
-export default Principal
+export default PrincipalM
