@@ -1,9 +1,65 @@
 import React,{useState,useEffect,useRef }  from 'react'
 import { View, FlatList, TextInput, TouchableOpacity,Image, Text,StyleSheet,ScrollView } from 'react-native';
+import CuadroChat from './CuadroChat';
+import axios from 'axios';
+const ChatM = ({navigation, route}) => {
+  const [id_mensaje,setIdmensaje] = useState('') 
+  const [mensaje, setMensaje]=useState('')
+    const [archivo, setarchivo]=useState('')
+    const [imagen, setimagen]=useState('')
+    const [audio, setaudio]=useState('')
+    const [tiposala, settiposala]=useState(0)
+    const [mensajees,setMensajees]=useState([])
+ 
+  
+    const{item} =route.params
+    const{nombre} =route.params
 
-const ChatM = ({setMostrarchat}) => {
     const [inputText, setInputText] = useState('');
     const scrollViewRef = useRef(null);
+    const {id_sala,idintengrante}=item;
+    const [datas,setDatas]=useState([])
+    useEffect(()=>{
+      console.log(id_sala,idintengrante)
+      const pre=async()=>{
+        const url="http://192.168.0.25/mensaje/listmen?idsala="+id_sala+"&idintegrante="+idintengrante
+        const respuesta =await axios.get(url)
+            const resultado = await respuesta.data
+            setMensajees(resultado)
+          
+      }
+     pre();
+    },[mensajees])
+    console.log(mensajees)
+   
+   
+    const enviarmensje=async()=>{
+     
+      if(mensaje=='')
+      {
+         
+          return
+      }
+      
+    
+      const nuevomensaje={
+        mensaje1:mensaje,
+        archivo:null,
+        imagen:null,
+        audio:null,
+        idIntegrante:idintengrante,
+        idSala:id_sala,
+        tiposala:1//parametro provicional
+      }
+      //setMensajees([...mensajees,nuevomensaje]);   
+      console.log(nuevomensaje)
+       
+        const url='http://192.168.0.25/mensaje/insert'
+        const respuesta=await axios.post(url,nuevomensaje)
+        const resultado =await respuesta.data
+      
+        setMensaje('') 
+  }
 
     const handleSendMessage = () => {
       // Aquí puedes agregar lógica para enviar el mensaje ingresado
@@ -17,88 +73,63 @@ const ChatM = ({setMostrarchat}) => {
       }, []);
 
         return (
+         
             <View style={styles.container}>
             <View style={styles.header}>
               <TouchableOpacity
-               style={styles.backButton}
-               onPress={()=>setMostrarchat(false)}>
+               style={styles.bsackButton}
+               onPress={()=>{navigation.goBack()}}>
                 <Text style={styles.backButtonText}>Atrás</Text>
               </TouchableOpacity>
               <Image source={require('../styles/img/1.png')} style={styles.imge} />
-              <Text style={styles.headerText}>Chat con Amigo</Text>
+              <Text style={styles.headerText}>{nombre}</Text>
             </View>
             <ScrollView contentContainerStyle={styles.chatContainer} 
             inverted
             ref={scrollViewRef}
             onContentSizeChange={() => scrollViewRef.current.scrollToEnd()}>
               {/* Mensajes del chat */}
-              <View style={styles.message}>
+              
+             {/* <View style={styles.message}>
                 <Text style={styles.senderName}>Amigo:</Text>
                 <Text  style={styles.senderName2}>Hola, ¿cómo estás?</Text>
               </View>
               <View style={styles.message2}>
                 <Text style={styles.senderName}>Tú:</Text>
                 <Text  style={styles.senderName2}>¡Hola! Estoy bien, gracias.</Text>
-              </View>
-              <View style={styles.message}>
-                <Text style={styles.senderName}>Amigo:</Text>
-                <Text  style={styles.senderName2}>Hola, ¿cómo estás?</Text>
-              </View>
-              <View style={styles.message2}>
-                <Text style={styles.senderName}>Tú:</Text>
-                <Text  style={styles.senderName2}>¡Hola! Estoy bien, gracias.</Text>
-              </View>
-              <View style={styles.message}>
-                <Text style={styles.senderName}>Amigo:</Text>
-                <Text  style={styles.senderName2}>Hola, ¿cómo estás?</Text>
-              </View>
-              <View style={styles.message2}>
-                <Text style={styles.senderName}>Tú:</Text>
-                <Text  style={styles.senderName2}>¡Hola! Estoy bien, gracias.</Text>
-              </View>
-              <View style={styles.message}>
-                <Text style={styles.senderName}>Amigo:</Text>
-                <Text  style={styles.senderName2}>Hola, ¿cómo estás?</Text>
-              </View>
-              <View style={styles.message2}>
-                <Text style={styles.senderName}>Tú:</Text>
-                <Text  style={styles.senderName2}>¡Hola! Estoy bien, gracias.</Text>
-              </View>
-              <View style={styles.message}>
-                <Text style={styles.senderName}>Amigo:</Text>
-                <Text  style={styles.senderName2}>Hola, ¿cómo estás?</Text>
-              </View>
-              <View style={styles.message2}>
-                <Text style={styles.senderName}>Tú:</Text>
-                <Text  style={styles.senderName2}>¡Hola! Estoy bien, gracias.</Text>
-              </View>
-              <View style={styles.message}>
-                <Text style={styles.senderName}>Amigo:</Text>
-                <Text  style={styles.senderName2}>Hola, ¿cómo estás?</Text>
-              </View>
-              <View style={styles.message2}>
-                <Text style={styles.senderName}>Tú:</Text>
-                <Text  style={styles.senderName2}>¡Holas! Estoy bien, gracias.</Text>
-              </View>
-              <View style={styles.message}>
-                <Text style={styles.senderName}>Amigo:</Text>
-                <Text  style={styles.senderName2}>Hola, ¿cómo estás?</Text>
-              </View>
-              <View style={styles.message2}>
-                <Text style={styles.senderName}>Tú:</Text>
-                <Text  style={styles.senderName2}>¡Hola! Estoy bien,jijij gracias.</Text>
-              </View>
+        </View>*/}
+<FlatList
+    data={mensajees}
+    keyExtractor={item=> item.idmen}
+    renderItem={({item})=>{
+        return(
+           <CuadroChat
+           item={item}
+            mensajees={mensajees}
+            idintengrant={idintengrante}
+            ></CuadroChat>
+        )
+    }}
+
+    ></FlatList>
+             
+
+             
               {/* Agrega más mensajes aquí */}
+             
             </ScrollView>
             <View style={styles.inputContainer}>
               <TextInput
                 style={styles.inputText}
                 placeholder="Escribe un mensaje..."
-                value={inputText}
-                onChangeText={(text) => setInputText(text)}
+                value={mensaje}
+                onChangeText={setMensaje}
               />
-              <TouchableOpacity style={styles.sendButton} onPress={handleSendMessage}>
-          <Text style={styles.sendButtonText}>Enviar</Text>
+              <TouchableOpacity style={styles.sendButton} onPress={enviarmensje}>
+          <Text 
+          style={styles.sendButtonText}
+         
+          >Enviar</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.sendFileButton} >
           <Text style={styles.sendFileButtonText}>Enviar Archivo</Text>
@@ -141,33 +172,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: 'flex-end',
   },
-  message: {
-    margin: 10,
-    padding: 10,
-    width:'65%',
-    backgroundColor: '#141414',
-    borderRadius: 10,
-    maxWidth: '80%',
-   
-  },
-  message2: {
-    margin: 10,
-    padding: 10,
-    width:'65%',
-    backgroundColor: '#41777b',
-    borderRadius: 10,
-    maxWidth: '80%',
-    alignSelf: 'flex-end',
-  },
-  
-  senderName: {
-    fontWeight: 'bold',
-    color:'white'
-  },
-  senderName2: {
-   
-    color:'white'
-  },
+ 
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -181,7 +186,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     padding: 10,
     borderRadius: 20,
-    color:'white',
+    color:'black',
 
   },
   sendButton: {

@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { NavigationContainer } from '@react-navigation/native'
 import PrincipalM from '../src/components/PrincipalM'
 import ChatM from '../src/components/ChatM'
+import InicioProviciona from '../src/components/InicioProviciona'
 
 const Stack=createNativeStackNavigator()
 
@@ -11,7 +12,12 @@ const MainStack = () => {
    <NavigationContainer>
         <Stack.Navigator
             screenOptions={{headerShown:false}}
+            initialRouteName="PrincipalM"
         >
+             <Stack.Screen
+                name='inicio'
+                component={InicioProviciona}
+            />
             <Stack.Screen
                 name='Principal'
                 component={PrincipalM}
