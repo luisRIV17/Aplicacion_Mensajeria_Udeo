@@ -20,7 +20,7 @@ const InicioProviciona = ({navigation}) => {
         style={styles.botonagregar} 
         onPress={()=>{navigation.navigate('Principal',{codper:codpersona})}}
         >
-        <Text  styles={styles.textagregar}>Agregar Gasto</Text>
+        <Text  styles={styles.textagregar}>Ingresar</Text>
         </Pressable>
     </View>
   )

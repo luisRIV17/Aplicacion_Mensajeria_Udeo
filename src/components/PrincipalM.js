@@ -11,11 +11,14 @@ const PrincipalM = ({navigation,route}) => {
 
     const {codper}=route.params
     const [salas,setSalas]= useState([])
+    const [enviar,setEnviar]= useState(true)
     const persona=codper
-  
+  const enlace="172.16.1.144"
+   
+    
     useEffect(()=>{
         const pre=async()=>{
-          const url="http://192.168.0.25/inicio/listsalas?idpersona="+persona
+          const url="http://"+enlace+"/inicio/listsalas?idpersona="+persona
           const respuesta =await axios.get(url)
               const resultado = await respuesta.data
               setSalas(resultado)
@@ -39,6 +42,9 @@ const PrincipalM = ({navigation,route}) => {
             item={item}
             persona={persona}
             navigation={navigation}
+            setEnviar={setEnviar}
+            enviar={enviar}
+            enlace={enlace}
             ></VentanaChatM>
         )
     }}

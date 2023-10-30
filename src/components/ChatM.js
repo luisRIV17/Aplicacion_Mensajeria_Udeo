@@ -11,26 +11,27 @@ const ChatM = ({navigation, route}) => {
     const [tiposala, settiposala]=useState(0)
     const [mensajees,setMensajees]=useState([])
  
-  
+    const {enlace}=route.params
     const{item} =route.params
     const{nombre} =route.params
+    const{setEnviar} =route.params
 
     const [inputText, setInputText] = useState('');
     const scrollViewRef = useRef(null);
     const {id_sala,idintengrante}=item;
     const [datas,setDatas]=useState([])
     useEffect(()=>{
-      console.log(id_sala,idintengrante)
+      
       const pre=async()=>{
-        const url="http://192.168.0.25/mensaje/listmen?idsala="+id_sala+"&idintegrante="+idintengrante
+        const url="http://"+enlace+"/mensaje/listmen?idsala="+id_sala+"&idintegrante="+idintengrante
         const respuesta =await axios.get(url)
             const resultado = await respuesta.data
             setMensajees(resultado)
-          
+            setEnviar(false)
       }
      pre();
     },[mensajees])
-    console.log(mensajees)
+   
    
    
     const enviarmensje=async()=>{
@@ -54,7 +55,7 @@ const ChatM = ({navigation, route}) => {
       //setMensajees([...mensajees,nuevomensaje]);   
       console.log(nuevomensaje)
        
-        const url='http://192.168.0.25/mensaje/insert'
+        const url='http://'+enlace+'/mensaje/insert'
         const respuesta=await axios.post(url,nuevomensaje)
         const resultado =await respuesta.data
       

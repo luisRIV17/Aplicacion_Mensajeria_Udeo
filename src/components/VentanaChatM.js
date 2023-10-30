@@ -2,27 +2,30 @@ import React,{useState,useEffect} from 'react'
 import { ScrollView, View,Button, StyleSheet, Text, Pressable, FlatList, Image, TouchableOpacity } from 'react-native'
 
 import axios from 'axios';
-const VentanaChatM = ({item,navigation,persona}) => {
+const VentanaChatM = ({item,navigation,persona,setEnviar,enviar,enlace}) => {
     const [detalle,setDetalle]= useState([])
   
     const {id_sala,idintengrante}=item;
     
       useEffect(()=>{
           const pre=async()=>{
-            const url="http://192.168.0.25/inicio/listdetamen?idsala="+item.id_sala+"&idpersona="+persona
+            const url="http://"+enlace+"/inicio/listdetamen?idsala="+item.id_sala+"&idpersona="+persona
             const respuesta =await axios.get(url)
                 const resultado = await respuesta.data
                 setDetalle(resultado)
+                setEnviar(true)
+
+               
           }
          pre();
-        },[])
+        },[enviar])
     const {nombresala,ultimomensaje,fecha,hora,envia}=detalle
    
       return (
         <View>
        
             <TouchableOpacity  style={style.contchat}
-             onPress={()=>{navigation.navigate('chat',{item ,nombre:detalle.nombresala})}} >
+             onPress={()=>{ navigation.navigate('chat',{item ,nombre:detalle.nombresala,enlace,setEnviar});}} >
                     <Image source={require('../styles/img/1.png')} style={style.imge} />
                     <View style={style.cuerpo}>
                       <Text style={style.usu}>{detalle.nombresala}</Text>
