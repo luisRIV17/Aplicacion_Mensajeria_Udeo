@@ -1,34 +1,111 @@
 import React, {useState, useEffect} from 'react'
-import { ScrollView, View,Button, StyleSheet, Text, Pressable, FlatList,Image } from 'react-native'
+import { ScrollView,Modal, View,Button,TouchableOpacity,  StyleSheet, Text, Pressable, FlatList,Image } from 'react-native'
 
 import EncabezadoM from './EncabezadoM'
 import VentanaChatM from './VentanaChatM'
 import axios from 'axios'
+const ModalPoup=({visible,children})=>{
+    
+    const [showModal,setShowModal]=useState(false)
+   useEffect(()=>{
+  
+         toggleModal()
+         
+   },[visible])
+   const toggleModal=()=>{
+    if(visible==true){
+        setShowModal(true)
+    }
+    else{
+        setShowModal(false)
+    }
+   }
+    return(
+        <Modal transparent visible={showModal} >
+            <View style={style.modalBackgroun}>
+                <View style={style.modalContainer}>
+                    {children}
+                </View>
+            </View>
+        </Modal>)
+}
 
 
 const PrincipalM = ({navigation,route}) => {
    
-
-    const {codper}=route.params
+   
+    const {codPersona}=route.params
     const [salas,setSalas]= useState([])
     const [enviar,setEnviar]= useState(true)
-    const persona=codper
-  const enlace="172.16.1.144"
+    const [visible,setVisible]=useState(false)
+    const persona=codPersona
+  const enlace="192.168.0.4"
    
     
-    useEffect(()=>{
+   
         const pre=async()=>{
           const url="http://"+enlace+"/inicio/listsalas?idpersona="+persona
           const respuesta =await axios.get(url)
               const resultado = await respuesta.data
+             
               setSalas(resultado)
         }
-       pre();
-      },[])
+     
 
+      
+      
+      const [valor, setValor] = useState(0);
+
+      useEffect(() => {
+        pre(); // Llamar a pre inmediatamente al cargar el componente
+    
+        const intervalId = setInterval(() => {
+          pre(); // Llamar a pre a intervalos de tiempo
+        }, 1000); // Cambiar el valor cada 60000ms (60 segundos)
+    
+        // Asegúrate de limpiar el intervalo cuando el componente se desmonte
+        return () => {
+          clearInterval(intervalId);
+        };
+      }, []);
+      
   return (
     <View style={style.mar}>
        <EncabezadoM/> 
+       <ModalPoup visible={visible}>
+        <View style={{  flexDirection:'row',
+    justifyContent:'space-between',
+    alignItems:'center',}}>
+            <Text style={{color:'#252525',fontWeight:'bold', fontSize:20}}>Crear</Text>
+            <TouchableOpacity 
+            onPress={()=>{setVisible(false)}}
+            >
+               <Text style={{color:'#3b3b3b',fontWeight:'bold', fontSize:20}}>X</Text>
+            </TouchableOpacity>
+        </View>
+        <View style={style.butonmodal}>
+            <TouchableOpacity 
+                onPress={() => {
+                    navigation.navigate('contactos', {enlace: enlace, persona: persona,setEnviar});
+                    setVisible(false);
+                }}
+                style={style.floatingButton2}
+            >
+                <Image style={style.img} source={require('../styles/img/m.png')}/>
+                <Text style={{color:'white',fontWeight:'bold', fontSize:15, textAlign:'center',}}>Chat</Text>
+            </TouchableOpacity>
+            <TouchableOpacity  style={ style.floatingButton2}
+            >
+                <Image style={style.img} source={require('../styles/img/grupo.png')}/>
+                <Text style={{color:'white',fontWeight:'bold', fontSize:15, textAlign:'center',}}>Grupo</Text>
+            </TouchableOpacity>
+            <TouchableOpacity  style={ style.floatingButton2} 
+            >
+                <Image style={style.img} source={require('../styles/img/agrega.png')}/>
+                <Text style={{color:'white',fontWeight:'bold', fontSize:15, textAlign:'center',}}>Nuevo contacto</Text>
+            </TouchableOpacity>
+        </View>
+       </ModalPoup>
     {/* Contenedor del chat */}
     <View style={style.mar}>
     <View style={style.mar1}>
@@ -52,6 +129,11 @@ const PrincipalM = ({navigation,route}) => {
     ></FlatList>
        
     </View>
+    <TouchableOpacity 
+    onPress={()=>setVisible(true)}
+    style={style.floatingButton}>
+     <Image style={style.img} source={require('../styles/img/m.png')}/>
+    </TouchableOpacity>
     </View>
 
     {/* Botones en la parte inferior */}
@@ -96,9 +178,57 @@ txbt:{
     fontSize:15,
 color:'white'
 },
-
-
-
+floatingButton: {
+    backgroundColor: '#437d81', // Color de fondo del botón
+    width: 60,
+    height: 60,
+    borderRadius: 15,
+    position: 'absolute',
+    bottom: 20, // Posición vertical
+    right: 20, // Posición horizontal
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  floatingButton2: {
+    width: 110,
+    height: 60,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  buttonText: {
+    color: 'white', // Color del texto
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
+img:{
+    width: 35,
+    height: 35,
+},
+modalBackgroun:{
+    flex:1,
+    backgroundColor:'rgba(0,0,0,0.5)',
+    justifyContent:'flex-end',
+   alignContent:'flex-end',
+},
+modalContainer:{
+    
+    width:'100%',
+    height:'25%',
+    paddingHorizontal:20,
+    backgroundColor:'#437d81',
+    elevation:10,
+    
+},
+butonmodal:{
+    flexDirection:'row',
+    justifyContent:'space-between',
+    alignItems:'center',
+    padding:5,
+    paddingTop:30,
+    backgroundColor:'#437d81',
+    borderRadius:10,
+   
+}
 })
 
 export default PrincipalM

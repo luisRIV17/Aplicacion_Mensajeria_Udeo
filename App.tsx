@@ -15,11 +15,14 @@ import ChatM from './src/components/ChatM';
 
 import { BackHandler } from 'react-native';
 import MainStack from './navigation/MainStack';
-
+import { LogBox } from 'react-native';
+LogBox.ignoreAllLogs();
 function App(): JSX.Element {
+  const [codPersona, setCodPersona] = useState('1001');
   return (
+    
     <SafeAreaView style={styles.mar} >
-    <MainStack/>
+    <MainStack codPersona = {codPersona}/>
     </SafeAreaView>
   );
 }

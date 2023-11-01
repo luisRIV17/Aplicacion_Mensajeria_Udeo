@@ -12,13 +12,14 @@ const ChatM = ({navigation, route}) => {
     const [mensajees,setMensajees]=useState([])
  
     const {enlace}=route.params
-    const{item} =route.params
+    const{id_sala} =route.params
+    const{idintengrante} =route.params
     const{nombre} =route.params
     const{setEnviar} =route.params
 
     const [inputText, setInputText] = useState('');
     const scrollViewRef = useRef(null);
-    const {id_sala,idintengrante}=item;
+ 
     const [datas,setDatas]=useState([])
     useEffect(()=>{
       

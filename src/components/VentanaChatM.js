@@ -7,25 +7,31 @@ const VentanaChatM = ({item,navigation,persona,setEnviar,enviar,enlace}) => {
   
     const {id_sala,idintengrante}=item;
     
-      useEffect(()=>{
-          const pre=async()=>{
-            const url="http://"+enlace+"/inicio/listdetamen?idsala="+item.id_sala+"&idpersona="+persona
-            const respuesta =await axios.get(url)
-                const resultado = await respuesta.data
-                setDetalle(resultado)
-                setEnviar(true)
-
-               
-          }
-         pre();
-        },[enviar])
+    const pre = async () => {
+      const url = "http://" + enlace + "/inicio/listdetamen?idsala=" + item.id_sala + "&idpersona=" + persona;
+      const respuesta = await axios.get(url);
+      const resultado = await respuesta.data;
+    
+      setDetalle(resultado);
+    };
+  
+    useEffect(() => {
+      const intervalId = setInterval(() => {
+        pre(); // Llama a la función pre a intervalos de tiempo
+      }, 1000); // Cambiar el valor cada 60000ms (60 segundos)
+  
+      // Asegúrate de limpiar el intervalo cuando el componente se desmonte
+      return () => {
+        clearInterval(intervalId);
+      };
+    }, []);
     const {nombresala,ultimomensaje,fecha,hora,envia}=detalle
    
       return (
         <View>
        
             <TouchableOpacity  style={style.contchat}
-             onPress={()=>{ navigation.navigate('chat',{item ,nombre:detalle.nombresala,enlace,setEnviar});}} >
+             onPress={()=>{ navigation.navigate('chat',{id_sala,idintengrante ,nombre:detalle.nombresala,enlace,setEnviar});}} >
                     <Image source={require('../styles/img/1.png')} style={style.imge} />
                     <View style={style.cuerpo}>
                       <Text style={style.usu}>{detalle.nombresala}</Text>
