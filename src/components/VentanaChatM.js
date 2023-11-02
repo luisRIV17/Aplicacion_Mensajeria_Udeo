@@ -17,10 +17,9 @@ const VentanaChatM = ({item,navigation,persona,setEnviar,enviar,enlace}) => {
   
     useEffect(() => {
       const intervalId = setInterval(() => {
-        pre(); // Llama a la función pre a intervalos de tiempo
-      }, 1000); // Cambiar el valor cada 60000ms (60 segundos)
+        pre(); 
+      }, 1000);
   
-      // Asegúrate de limpiar el intervalo cuando el componente se desmonte
       return () => {
         clearInterval(intervalId);
       };

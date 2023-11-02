@@ -34,11 +34,11 @@ const ModalPoup=({visible,children})=>{
 const PrincipalM = ({navigation,route}) => {
    
    
-    const {codPersona}=route.params
+    const {codper}=route.params
     const [salas,setSalas]= useState([])
     const [enviar,setEnviar]= useState(true)
     const [visible,setVisible]=useState(false)
-    const persona=codPersona
+    const persona=codper
   const enlace="192.168.0.4"
    
     
@@ -50,6 +50,11 @@ const PrincipalM = ({navigation,route}) => {
              
               setSalas(resultado)
         }
+        const cambioestadoRecibido=async()=>{
+            const url="http://"+enlace+"/mensaje/srecibido?idper="+persona
+            const respuesta =await axios.put(url)
+                const resultado = await respuesta.data
+          }
      
 
       
@@ -58,8 +63,9 @@ const PrincipalM = ({navigation,route}) => {
 
       useEffect(() => {
         pre(); // Llamar a pre inmediatamente al cargar el componente
-    
+        cambioestadoRecibido();
         const intervalId = setInterval(() => {
+            cambioestadoRecibido();
           pre(); // Llamar a pre a intervalos de tiempo
         }, 1000); // Cambiar el valor cada 60000ms (60 segundos)
     

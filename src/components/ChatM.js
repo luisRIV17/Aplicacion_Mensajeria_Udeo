@@ -29,12 +29,26 @@ const ChatM = ({navigation, route}) => {
             const resultado = await respuesta.data
             setMensajees(resultado)
             setEnviar(false)
+            
       }
      pre();
     },[mensajees])
    
-   
-   
+    const cambioestadoLeido=async()=>{
+      const url="http://"+enlace+"/mensaje/sleido?idinte="+idintengrante+"&idsala="+id_sala
+      
+      const respuesta =await axios.put(url)
+          const resultado = await respuesta.data
+    }
+    useEffect(() => {
+      const intervalId = setInterval(() => {
+        cambioestadoLeido(); 
+      }, 1000);
+  
+      return () => {
+        clearInterval(intervalId);
+      };
+    }, []);
     const enviarmensje=async()=>{
      
       if(mensaje=='')
@@ -63,11 +77,7 @@ const ChatM = ({navigation, route}) => {
         setMensaje('') 
   }
 
-    const handleSendMessage = () => {
-      // Aquí puedes agregar lógica para enviar el mensaje ingresado
-      // Por ahora, simplemente imprimiremos el mensaje en la consola
-      scrollViewRef.current.scrollToEnd();
-    };
+   
   
     useEffect(() => {
         // Desplázate automáticamente hacia abajo al cargar la pantalla
@@ -89,7 +99,7 @@ const ChatM = ({navigation, route}) => {
             <ScrollView contentContainerStyle={styles.chatContainer} 
             inverted
             ref={scrollViewRef}
-            onContentSizeChange={() => scrollViewRef.current.scrollToEnd()}>
+            onContentSizeChange={() => scrollViewRef.current.scrollToEnd({ animated: false })}>
               {/* Mensajes del chat */}
               
              {/* <View style={styles.message}>

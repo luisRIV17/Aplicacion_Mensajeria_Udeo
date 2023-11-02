@@ -18,7 +18,7 @@ import MainStack from './navigation/MainStack';
 import { LogBox } from 'react-native';
 LogBox.ignoreAllLogs();
 function App(): JSX.Element {
-  const [codPersona, setCodPersona] = useState('1001');
+  const [codPersona, setCodPersona] = useState('1002');
   return (
     
     <SafeAreaView style={styles.mar} >

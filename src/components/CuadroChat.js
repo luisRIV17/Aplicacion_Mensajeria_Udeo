@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text,Image, View } from 'react-native'
 
 const CuadroChat = ({item,mensajees,idintengrant}) => {
   const {idmen,idintegrante,nombrepersona,mensaje,
@@ -10,7 +10,14 @@ const CuadroChat = ({item,mensajees,idintengrant}) => {
     <View style={idintengrant===item.idintegrante?styles.message2:styles.message}>
                {/* <Text style={styles.senderName}>{idintengrant===item.idintegrante?'Yo':item.nombrepersona }</Text>*/} 
                 <Text  style={styles.senderName2}>{item.mensaje}</Text>
-                <Text  style={styles.hora}>{item.hora}</Text>
+                <Text  style={styles.hora}>{item.hora}    {
+               item.estadoquienleyo==1? item.estadolecturamen==='sin leer'?
+              ( <Image style={[styles.imges]} source={require('../styles/img/1m.png')} />):
+              item.estadolecturamen==='recibido'?
+              ( <Image style={[styles.imges2]} source={require('../styles/img/2m.png')} />):
+              item.estadolecturamen==='leido'?
+              ( <Image style={[styles.imges3]} source={require('../styles/img/3mn.png')} />):null:null
+              } </Text>
   </View>
  
   )
@@ -52,5 +59,17 @@ const styles=StyleSheet.create({
        
         color:'white'
       },
+      imges:{
+        width: 13,
+        height: 13,
+      },
+      imges2:{
+        width: 22,
+        height: 22,
+      },
+      imges3:{
+        width: 16,
+        height: 16,
+      }
 })
 export default CuadroChat

@@ -6,22 +6,31 @@ import ChatM from '../src/components/ChatM'
 import InicioProviciona from '../src/components/InicioProviciona'
 import contactos from '../src/components/contactos'
 import Nuevocontact from '../src/components/Nuevocontact'
+import SplashScreen from '../src/components/SplashScreen'
 
 const Stack=createNativeStackNavigator()
 
 const MainStack = ({codPersona}) => {
-    console.log(codPersona)
   return (
    <NavigationContainer>
         <Stack.Navigator
             screenOptions={{headerShown:false}}
-            initialRouteName="Principal"
+            initialRouteName="primera"
         >
-             
+            <Stack.Screen
+                name='primera'
+                component={SplashScreen}
+
+            />
+             <Stack.Screen
+                name='inicio'
+                component={InicioProviciona}
+
+            />
             <Stack.Screen
                 name='Principal'
                 component={PrincipalM}
-                initialParams={{ codPersona: codPersona }}
+               
             />
             <Stack.Screen
                 name='contactos'
