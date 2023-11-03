@@ -19,6 +19,7 @@ import { LogBox } from 'react-native';
 import Tabnavigation from './navigation/Tabnavigation';
 import InicioProviciona from './src/components/InicioProviciona';
 import SplashScreen from './src/components/SplashScreen';
+import Inicio from './src/components/Inicio';
 
 LogBox.ignoreAllLogs();
 function App(): JSX.Element {
@@ -31,9 +32,10 @@ function App(): JSX.Element {
       {validasplash===false?(
         <SplashScreen setvalidasplash={setvalidasplash}/>
       ): valida==false?(
-      <InicioProviciona setValida={setValida} setCodPersona={setCodPersona}/>
+      /*<InicioProviciona setValida={setValida} setCodPersona={setCodPersona}/>*/
+      <Inicio setValida={setValida} setCodPersona={setCodPersona}/>
       ):(
-        <Tabnavigation codper={codper}/>
+        <Tabnavigation codper={codper} setValida={setValida}/>
       )}
      
       

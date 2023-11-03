@@ -1,16 +1,24 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { ScrollView, View,Button, StyleSheet, Text, Pressable, Image } from 'react-native'
+import OpcionesModal from './OpcionesModal'
 
-const EncabezadoM = ({titulo}) => {
+const EncabezadoM = ({titulo,setValida}) => {
+    const [modOpciones, setModOpciones]= useState(false)
   return (
     <View style={style.enca}>
     <View style={style.enca}>
     <Image source={ require('../styles/img/2.png')} style={style.imge}></Image>
 <Text style={style.titulo}>{titulo}</Text>
 </View>
-<Pressable style={style.btmenu}>
+<Pressable style={style.btmenu}
+onPress={()=>setModOpciones(true)}>
         <Text style={style.txbt}>Opciones</Text>
     </Pressable>
+    <OpcionesModal
+modOpciones={modOpciones}
+setModOpciones={setModOpciones}
+setValida={setValida}
+></OpcionesModal>
 </View>
 )
 }

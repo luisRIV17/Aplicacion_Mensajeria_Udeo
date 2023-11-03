@@ -23,7 +23,7 @@ const screenOptions = {
   },
   tabBarActiveTintColor: '#66C5CB',
 };
-const Tabnavigation = ({codper}) => {
+const Tabnavigation = ({codper,setValida}) => {
  
   const enlace="172.16.1.144"
     return (
@@ -45,7 +45,7 @@ const Tabnavigation = ({codper}) => {
             />
             <Tab.Screen
               name="Chats"
-              component={() => <MainStack codper={codper}  enlace={enlace}/>}
+              component={() => <MainStack codper={codper}  enlace={enlace} setValida={setValida}/>}
               options={{
                 tabBarIcon: ({ color, size }) => (
                   <FontAwesomeIcon icon={faCommentDots} color={color} size={28} />

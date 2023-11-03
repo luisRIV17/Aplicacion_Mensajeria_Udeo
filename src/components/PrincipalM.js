@@ -36,6 +36,7 @@ const PrincipalM = ({navigation,route}) => {
    
     const {codper}=route.params
     const {enlace}=route.params
+    const {setValida}=route.params
    
     const [salas,setSalas]= useState([])
     const [enviar,setEnviar]= useState(true)
@@ -81,7 +82,7 @@ const PrincipalM = ({navigation,route}) => {
       
   return (
     <View style={style.mar}>
-       <EncabezadoM titulo={titulo}/> 
+       <EncabezadoM titulo={titulo} setValida={setValida}/> 
        <ModalPoup visible={visible}>
         <View style={{  flexDirection:'row',
     justifyContent:'space-between',
