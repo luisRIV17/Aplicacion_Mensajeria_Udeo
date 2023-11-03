@@ -35,7 +35,7 @@ const VentanaChatM = ({item,navigation,persona,setEnviar,enviar,enlace}) => {
                     <View style={style.cuerpo}>
                       <Text style={style.usu}>{detalle.nombresala}</Text>
                       <Text style={style.mensaje}>{
-                      detalle.ultimomensaje!=null? detalle.ultimomensaje.length > 10 ? detalle.ultimomensaje.slice(0, 20) + "..." : detalle.ultimomensaje:null
+                      detalle.ultimomensaje!=null? detalle.ultimomensaje.length > 20 ? detalle.ultimomensaje.slice(0, 20) + "..." : detalle.ultimomensaje:null
                       }</Text>
                     </View>
                     {tipolec!=4?envia==false?cant!=0?(

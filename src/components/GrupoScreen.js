@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, FlatList, TouchableOpacity, StyleSheet, Alert } from 'react-native';
-
-const GroupScreen = ({ selectedContacts, navigation }) => {
+import axios from 'axios';
+const GroupScreen = ({ selectedContacts, navigation,enlace,persona,setSelectedContacts }) => {
   const [groupName, setGroupName] = useState('');
 
-  const createGroup = () => {
+  const createGroup = async() => {
     if (!groupName) {
       Alert.alert('Error', 'Ingresar nombre para el grupo');
       return;
@@ -14,14 +14,36 @@ const GroupScreen = ({ selectedContacts, navigation }) => {
       return;
     }
     // Crear el grupo aquí
+    
+    const nuevogrupo={
+      idpersonacreo:persona,
+      estadoChat:true,
+      idTipoSala:2,
+      nombreSala:groupName,
+      idpersonaconta:selectedContacts.map((i)=>({
+        idPersona:i.idpersona
+      })),    }
+    const url="http://"+enlace+"/inicio/insertsalagrupal"
+    console.log(url)  
+    const respuesta=await axios.post(url,nuevogrupo)
+    const resultado =await respuesta.data
+    console.log(resultado)
+    if(resultado)
+    {
+      setSelectedContacts([])
+      navigation.navigate('Chats')
+    }
+    else[
+      Alert.alert('Error','No se pudo crear el grupo', [{text:'Aceptar'}])
+    ]
   };
 
   const renderItem = ({ item }) => (
     <TouchableOpacity style={styles.contactItem}>
       <View style={styles.avatarContainer}></View>
       <View style={styles.contactInfo}>
-        <Text style={styles.contactName}>{item.name}</Text>
-        <Text style={styles.phoneNumber}>{item.phoneNumber}</Text>
+        <Text style={styles.contactName}>{item.nombrecontacto}</Text>
+        <Text style={styles.phoneNumber}>{item.leyenda}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -38,12 +60,12 @@ const GroupScreen = ({ selectedContacts, navigation }) => {
       <Text style={styles.participantsText}>{`${selectedContacts.length} Participantes`}</Text>
       <FlatList
         data={selectedContacts}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.idpersona}
         renderItem={renderItem}
       />
       <TouchableOpacity
         style={styles.createGroupButton}
-        onPress={ ()=> navigation.navigate('Chats')}
+        onPress={ createGroup}
       >
         <Text style={styles.createGroupButtonText}>Crear Grupo</Text>
       </TouchableOpacity>

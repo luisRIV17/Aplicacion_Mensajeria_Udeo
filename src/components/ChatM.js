@@ -2,6 +2,9 @@ import React,{useState,useEffect,useRef }  from 'react'
 import { View, FlatList, TextInput, TouchableOpacity,Image, Text,StyleSheet,ScrollView } from 'react-native';
 import CuadroChat from './CuadroChat';
 import axios from 'axios';
+import Sound from 'react-native-sound';
+
+
 const ChatM = ({navigation, route}) => {
   const [id_mensaje,setIdmensaje] = useState('') 
   const [mensaje, setMensaje]=useState('')
@@ -16,11 +19,17 @@ const ChatM = ({navigation, route}) => {
     const{idintengrante} =route.params
     const{nombre} =route.params
     const{setEnviar} =route.params
-
+    const [seHaRenderizado, setSeHaRenderizado] = useState(false);
     const [inputText, setInputText] = useState('');
     const scrollViewRef = useRef(null);
  
     const [datas,setDatas]=useState([])
+    const sendSound = new Sound('../bep-6-96243.mp3', Sound.MAIN_BUNDLE, (error) => {
+      if (error) {
+      
+      }
+    });
+    
     useEffect(()=>{
       
       const pre=async()=>{
@@ -73,7 +82,7 @@ const ChatM = ({navigation, route}) => {
         const url='http://'+enlace+'/mensaje/insert'
         const respuesta=await axios.post(url,nuevomensaje)
         const resultado =await respuesta.data
-      
+        
         setMensaje('') 
   }
 
@@ -90,7 +99,7 @@ const ChatM = ({navigation, route}) => {
             <View style={styles.header}>
               <TouchableOpacity
                style={styles.bsackButton}
-               onPress={()=>{navigation.goBack()}}>
+               onPress={()=>{navigation.navigate('Principal')}}>
                  <Image source={require('../styles/img/back.png')} style={{width:25,height:25, marginHorizontal:10}}/>
               </TouchableOpacity>
               <Image source={require('../styles/img/1.png')} style={styles.imge} />
@@ -119,6 +128,8 @@ const ChatM = ({navigation, route}) => {
             item={item}
             mensajees={mensajees}
             idintengrant={idintengrante}
+            setSeHaRenderizado={setSeHaRenderizado}
+            seHaRenderizado={seHaRenderizado}
             ></CuadroChat>
         )
     }}

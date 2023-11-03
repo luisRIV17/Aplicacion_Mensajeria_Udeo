@@ -1,12 +1,12 @@
 import React from 'react'
 import { ScrollView, View,Button, StyleSheet, Text, Pressable, Image } from 'react-native'
 
-const EncabezadoM = () => {
+const EncabezadoM = ({titulo}) => {
   return (
     <View style={style.enca}>
     <View style={style.enca}>
     <Image source={ require('../styles/img/2.png')} style={style.imge}></Image>
-<Text style={style.titulo}>Chats</Text>
+<Text style={style.titulo}>{titulo}</Text>
 </View>
 <Pressable style={style.btmenu}>
         <Text style={style.txbt}>Opciones</Text>

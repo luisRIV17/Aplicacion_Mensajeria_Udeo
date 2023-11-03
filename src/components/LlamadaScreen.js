@@ -21,13 +21,13 @@ const contactsData = [
     { id: '13', name: 'Contacto 13', phoneNumber: '+502 0000-0000' },
     { id: '14', name: 'Contacto 14', phoneNumber: '+502 0000-0000' },
 ];
-
+const titulo="Llamadas"
 const LlamadaScreen = ({ navigation }) => {
   const [selectedContacts, setSelectedContacts] = useState([]);
 
   return (
     <View style={styles.container}>
-      <EncabezadoM />
+      <EncabezadoM titulo={titulo}/>
       <FlatList
   data={contactsData}
   keyExtractor={(item) => item.id}
@@ -54,7 +54,7 @@ const LlamadaScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#252525',
+    backgroundColor: '#3b3b3b',
   },
   iconContainer: {
     flexDirection: 'row',  

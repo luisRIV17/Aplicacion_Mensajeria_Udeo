@@ -25,7 +25,7 @@ const screenOptions = {
 };
 const Tabnavigation = ({codper}) => {
  
-
+  const enlace="172.16.1.144"
     return (
       <NavigationContainer>
           <Tab.Navigator
@@ -34,7 +34,8 @@ const Tabnavigation = ({codper}) => {
           >
             <Tab.Screen
               name="Contactos"
-              component={ContactScreen}
+              component={ContactScreen }
+              initialParams={{codper:codper,enlace:enlace}}
               options={{
                 tabBarIcon: ({ color, size }) => (
                   <FontAwesomeIcon icon={faAddressBook} color={color} size={28} />
@@ -44,7 +45,7 @@ const Tabnavigation = ({codper}) => {
             />
             <Tab.Screen
               name="Chats"
-              component={() => <MainStack codper={codper} />}
+              component={() => <MainStack codper={codper}  enlace={enlace}/>}
               options={{
                 tabBarIcon: ({ color, size }) => (
                   <FontAwesomeIcon icon={faCommentDots} color={color} size={28} />

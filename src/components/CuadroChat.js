@@ -1,14 +1,25 @@
+
 import React from 'react'
 import { StyleSheet, Text,Image, View } from 'react-native'
 
-const CuadroChat = ({item,mensajees,idintengrant}) => {
+const CuadroChat = ({item,mensajees,idintengrant,setSeHaRenderizado,seHaRenderizado}) => {
   const {idmen,idintegrante,nombrepersona,mensaje,
     fecha,hora,estadoquienleyo,estadolecturamen,
-    estadomensaje}=item;
-   
+    estadomensaje,tipogrupo}=item;
+    const fechaActual = new Date();
+    const opcionesDeFormato = { year: 'numeric', month: 'numeric', day: 'numeric' };
+  const fechaFormateada = fechaActual.toLocaleDateString('es-ES', opcionesDeFormato);
+    const fecha2 = new Date(fecha);
+
   return (
     <View style={idintengrant===item.idintegrante?styles.message2:styles.message}>
-               {/* <Text style={styles.senderName}>{idintengrant===item.idintegrante?'Yo':item.nombrepersona }</Text>*/} 
+              {/*
+                fechaFormateada===fecha?seHaRenderizado===false?(<Text style={{fontSize:18, color:'white'}}>HOY</Text>,setSeHaRenderizado(true)):null:null
+               
+  */}
+              {tipogrupo===2?item.estadoquienleyo==2?(
+                <Text style={styles.senderName}>{idintengrant===item.idintegrante?'Yo':item.nombrepersona }</Text> 
+              ):null:null} 
                 <Text  style={styles.senderName2}>
                 { item.mensaje}
                   </Text>
@@ -47,15 +58,15 @@ const styles=StyleSheet.create({
       },
       hora: {
         color:'white',
-        color: 'white',
-            fontWeight:'200' ,
+       
+            fontWeight:'300' ,
             fontSize:12,
             textAlign: 'right'
       },
       
       senderName: {
         fontWeight: 'bold',
-        color:'white'
+        color:'#66c5cb'
       },
       senderName2: {
        

@@ -10,7 +10,7 @@ import SplashScreen from '../src/components/SplashScreen'
 
 const Stack=createNativeStackNavigator()
 
-const MainStack = ({codper}) => {
+const MainStack = ({codper,enlace}) => {
   return (
    
         <Stack.Navigator
@@ -21,7 +21,7 @@ const MainStack = ({codper}) => {
             <Stack.Screen
                 name='Principal'
                 component={PrincipalM}
-               initialParams={{codper:codper}}
+               initialParams={{codper:codper,enlace:enlace}}
             />
             <Stack.Screen
                 name='contactos'

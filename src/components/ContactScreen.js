@@ -1,27 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, TextInput, Pressable, Image, Modal, Button } from 'react-native';
 import GroupScreen from './GrupoScreen'
 import EncabezadoM from './EncabezadoM';
+import axios from 'axios'
 
-const contactsData = [
-    { id: '1', name: 'Contacto 1 ', phoneNumber: '+502 0000-0000'},
-    { id: '2', name: 'Contacto 2 ', phoneNumber: '+502 0000-0000'},
-    { id: '3', name: 'Contacto 3 ', phoneNumber: '+502 0000-0000'},
-    { id: '4', name: 'Contacto 4 ', phoneNumber: '+502 0000-0000'},
-    { id: '5', name: 'Contacto 5 ', phoneNumber: '+502 0000-0000'},
-    { id: '6', name: 'Contacto 6 ', phoneNumber: '+502 0000-0000'},
-    { id: '7', name: 'Contacto 7 ', phoneNumber: '+502 0000-0000'},
-    { id: '8', name: 'Contacto 8 ', phoneNumber: '+502 0000-0000'},
-    { id: '9', name: 'Contacto 9 ', phoneNumber: '+502 0000-0000' },
-    { id: '10', name: 'Contacto 10 ', phoneNumber: '+502 0000-0000'},
-    { id: '11', name: 'Contacto 11 ', phoneNumber: '+502 0000-0000'},
-    { id: '12', name: 'Contacto 12 ', phoneNumber: '+502 0000-0000'},
-    { id: '13', name: 'Contacto 13 ', phoneNumber: '+502 0000-0000'},
-    { id: '14', name: 'Contacto 14 ', phoneNumber: '+502 0000-0000'},
-];
-const ContactScreen = ({ navigation }) => {
+const ContactScreen = ({ navigation,route }) => {
+  const {codper}=route.params
+  const {enlace}=route.params
+  const persona=codper
+  console.log(codper)
   const [selectedContacts, setSelectedContacts] = useState([]);
   const [isCreateGroupVisible, setIsCreateGroupVisible] = useState(false);
+  const [contacto,setContacto]= useState([])
+
+  useEffect(()=>{
+    const pre=async()=>{
+      const url="http://"+enlace+"/contacto/listmen?idpersona="+persona
+      console.log(url)
+      const respuesta =await axios.get(url)
+          const resultado = await respuesta.data
+          setContacto(resultado)
+          console.log(resultado)
+    }
+   pre();
+  },[])
 
   const showCreateGroupScreen = () => {
     setIsCreateGroupVisible(true);
@@ -31,13 +33,13 @@ const ContactScreen = ({ navigation }) => {
     setIsCreateGroupVisible(false);
     setSelectedContacts([]); 
   };
-
+const titulo="Contactos"
   return (
     <View style={styles.container}>
-      <EncabezadoM />
+      <EncabezadoM titulo={titulo}/>
       <FlatList
-        data={contactsData}
-        keyExtractor={(item) => item.id}
+        data={contacto}
+        keyExtractor={(item) => item.idpersona}
         renderItem={({ item }) => (
           <TouchableOpacity
             onPress={() => navigation.navigate('Chat', { contactName: item.name })}
@@ -53,13 +55,14 @@ const ContactScreen = ({ navigation }) => {
               selectedContacts.includes(item) ? styles.selectedContact : null,
             ]}
           >
-            <View style={styles.avatarContainer}>
-            </View>
+           
+            <Image source={require('../styles/img/1.png')} style={styles.avatarContainer} />
+            
             <View style={styles.contactInfo}>
               <Text style={[styles.contactName, selectedContacts.includes(item) ? styles.selectedContactName : null]}>
-                {item.name}
+                {item.nombrecontacto}
               </Text>
-              <Text style={styles.phoneNumber}>{item.phoneNumber}</Text>
+              <Text style={styles.phoneNumber}>{item.leyenda}</Text>
             </View>
           </TouchableOpacity>
         )}
@@ -87,6 +90,9 @@ const ContactScreen = ({ navigation }) => {
         <GroupScreen
           selectedContacts={selectedContacts}
           navigation={navigation}
+          enlace={enlace}
+          persona={persona}
+          setSelectedContacts={setSelectedContacts}
         />
        <TouchableOpacity
           style={styles.createGroupButton1}
@@ -102,7 +108,7 @@ const ContactScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#252525',
+    backgroundColor: '#3b3b3b',
   },
   selectedContact: {
     backgroundColor: '#02abbf',
@@ -132,7 +138,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     padding: 16,
-    borderBottomWidth: 1,
+    borderBottomWidth: 2,
     borderBottomColor: '#458488',
   },
   selectedContact: {

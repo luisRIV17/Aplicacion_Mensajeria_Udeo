@@ -29,18 +29,20 @@ const ModalPoup=({visible,children})=>{
             </View>
         </Modal>)
 }
-
+const titulo="Chats"
 
 const PrincipalM = ({navigation,route}) => {
    
    
     const {codper}=route.params
-    console.log(codper)
+    const {enlace}=route.params
+   
     const [salas,setSalas]= useState([])
     const [enviar,setEnviar]= useState(true)
     const [visible,setVisible]=useState(false)
+
     const persona=codper
-  const enlace="172.16.1.144"
+  
    
     
    
@@ -79,7 +81,7 @@ const PrincipalM = ({navigation,route}) => {
       
   return (
     <View style={style.mar}>
-       <EncabezadoM/> 
+       <EncabezadoM titulo={titulo}/> 
        <ModalPoup visible={visible}>
         <View style={{  flexDirection:'row',
     justifyContent:'space-between',
@@ -102,11 +104,7 @@ const PrincipalM = ({navigation,route}) => {
                 <Image style={style.img} source={require('../styles/img/m.png')}/>
                 <Text style={{color:'white',fontWeight:'bold', fontSize:15, textAlign:'center',}}>Chat</Text>
             </TouchableOpacity>
-            <TouchableOpacity  style={ style.floatingButton2}
-            >
-                <Image style={style.img} source={require('../styles/img/grupo.png')}/>
-                <Text style={{color:'white',fontWeight:'bold', fontSize:15, textAlign:'center',}}>Grupo</Text>
-            </TouchableOpacity>
+         
             <TouchableOpacity  style={ style.floatingButton2} 
              onPress={() => {
                 navigation.navigate('nuevocontacto', {enlace: enlace, persona: persona,setEnviar});
@@ -222,7 +220,7 @@ modalContainer:{
 },
 butonmodal:{
     flexDirection:'row',
-    justifyContent:'space-between',
+    justifyContent:'space-around',
     alignItems:'center',
     padding:5,
     paddingTop:30,
