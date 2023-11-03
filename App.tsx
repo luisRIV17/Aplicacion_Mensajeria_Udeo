@@ -16,13 +16,28 @@ import ChatM from './src/components/ChatM';
 import { BackHandler } from 'react-native';
 import MainStack from './navigation/MainStack';
 import { LogBox } from 'react-native';
+import Tabnavigation from './navigation/Tabnavigation';
+import InicioProviciona from './src/components/InicioProviciona';
+import SplashScreen from './src/components/SplashScreen';
+
 LogBox.ignoreAllLogs();
 function App(): JSX.Element {
-  const [codPersona, setCodPersona] = useState('1002');
+  const [codper, setCodPersona] = useState('1002');
+  const [valida, setValida] = useState(false);
+  const [validasplash, setvalidasplash] = useState(false);
   return (
     
     <SafeAreaView style={styles.mar} >
-    <MainStack codPersona = {codPersona}/>
+      {validasplash===false?(
+        <SplashScreen setvalidasplash={setvalidasplash}/>
+      ): valida==false?(
+      <InicioProviciona setValida={setValida} setCodPersona={setCodPersona}/>
+      ):(
+        <Tabnavigation codper={codper}/>
+      )}
+     
+      
+    {/*<MainStack codPersona = {codPersona}/>*/}
     </SafeAreaView>
   );
 }

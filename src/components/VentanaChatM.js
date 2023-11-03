@@ -18,13 +18,13 @@ const VentanaChatM = ({item,navigation,persona,setEnviar,enviar,enlace}) => {
     useEffect(() => {
       const intervalId = setInterval(() => {
         pre(); 
-      }, 1000);
+      }, 5000);
   
       return () => {
         clearInterval(intervalId);
       };
     }, []);
-    const {nombresala,ultimomensaje,fecha,hora,envia}=detalle
+    const {nombresala,ultimomensaje,fecha,hora,envia,tipolec,cant}=detalle
    
       return (
         <View>
@@ -36,8 +36,16 @@ const VentanaChatM = ({item,navigation,persona,setEnviar,enviar,enlace}) => {
                       <Text style={style.usu}>{detalle.nombresala}</Text>
                       <Text style={style.mensaje}>{detalle.ultimomensaje}</Text>
                     </View>
-                    <Text style={style.hora}>{detalle.fecha}</Text>
-                    <Text style={style.hora}>{detalle.hora}</Text>
+                    {tipolec!=4?envia==false?cant!=0?(
+                      <Pressable style={{ width: 25,justifyContent: 'center', height: 25,borderRadius:25, marginRight: 15,backgroundColor:'#66c5cb' }}>
+                      <Text style={{textAlign:'center',fontSize:12, fontWeight:'bold'}}>{cant}</Text>
+                    </Pressable>
+                    ):null:null:null}
+                    <View>
+                      <Text style={style.hora}>{detalle.fecha}</Text>
+                      <Text style={style.hora}>{detalle.hora}</Text>
+                    </View>
+                   
                   </TouchableOpacity>
           
     </View>
@@ -67,6 +75,7 @@ const VentanaChatM = ({item,navigation,persona,setEnviar,enviar,enlace}) => {
             flex: 1,
             marginLeft: 10,
           },
+          
           usu: {
             fontSize: 16,
             fontWeight: 'bold',

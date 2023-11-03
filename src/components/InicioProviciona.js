@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { StyleSheet, Text, TextInput, View,Pressable } from 'react-native'
 
-const InicioProviciona = ({navigation}) => {
+const InicioProviciona = ({setValida,setCodPersona}) => {
     const [codpersona,setCodpersona]= useState('')
    
   return (
@@ -18,7 +18,7 @@ const InicioProviciona = ({navigation}) => {
         </View>
        <Pressable
         style={styles.botonagregar} 
-        onPress={()=>{navigation.navigate('Principal',{codper:codpersona})}}
+        onPress={()=>{setValida(true),setCodPersona(codpersona)}}
         >
         <Text  styles={styles.textagregar}>Ingresar</Text>
         </Pressable>

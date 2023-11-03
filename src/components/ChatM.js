@@ -29,7 +29,7 @@ const ChatM = ({navigation, route}) => {
             const resultado = await respuesta.data
             setMensajees(resultado)
             setEnviar(false)
-            
+           
       }
      pre();
     },[mensajees])
@@ -91,7 +91,7 @@ const ChatM = ({navigation, route}) => {
               <TouchableOpacity
                style={styles.bsackButton}
                onPress={()=>{navigation.goBack()}}>
-                <Text style={styles.backButtonText}>Atrás</Text>
+                 <Image source={require('../styles/img/back.png')} style={{width:25,height:25, marginHorizontal:10}}/>
               </TouchableOpacity>
               <Image source={require('../styles/img/1.png')} style={styles.imge} />
               <Text style={styles.headerText}>{nombre}</Text>
@@ -99,7 +99,7 @@ const ChatM = ({navigation, route}) => {
             <ScrollView contentContainerStyle={styles.chatContainer} 
             inverted
             ref={scrollViewRef}
-            onContentSizeChange={() => scrollViewRef.current.scrollToEnd({ animated: false })}>
+            onContentSizeChange={() => scrollViewRef.current.scrollToEnd()}>
               {/* Mensajes del chat */}
               
              {/* <View style={styles.message}>
@@ -116,7 +116,7 @@ const ChatM = ({navigation, route}) => {
     renderItem={({item})=>{
         return(
            <CuadroChat
-           item={item}
+            item={item}
             mensajees={mensajees}
             idintengrant={idintengrante}
             ></CuadroChat>
@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor:'#252525',
-    padding: 10,
+    paddingVertical: 10,
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
   imge: {
     width: 40,
     height: 40,
-    marginLeft:20,
+    marginLeft:5,
     backgroundColor:"#66c5cb",
     borderRadius: 25,
   },

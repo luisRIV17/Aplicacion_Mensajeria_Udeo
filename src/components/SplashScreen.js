@@ -2,23 +2,24 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import ProgressBar from 'react-native-progress/Bar';
 
-const SplashScreen = ({ navigation }) => {
+const SplashScreen = ({setvalidasplash} ) => {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     const timer = setInterval(() => {
       if (progress < 1) {
-        setProgress(progress + 0.1); 
+        setProgress(progress + 0.09); 
       } else {
         clearInterval(timer);
-        navigation.navigate('inicio');
+        setvalidasplash(true)
+
       }
-    }, 2);
+    }, 50);
   
     return () => {
       clearInterval(timer);
     };
-  }, [navigation, progress]);
+  }, [progress]);
 
   return (
     <View style={styles.container}>

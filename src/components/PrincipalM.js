@@ -35,6 +35,7 @@ const PrincipalM = ({navigation,route}) => {
    
    
     const {codper}=route.params
+    console.log(codper)
     const [salas,setSalas]= useState([])
     const [enviar,setEnviar]= useState(true)
     const [visible,setVisible]=useState(false)
@@ -67,7 +68,8 @@ const PrincipalM = ({navigation,route}) => {
         const intervalId = setInterval(() => {
             cambioestadoRecibido();
           pre(); // Llamar a pre a intervalos de tiempo
-        }, 1000); // Cambiar el valor cada 60000ms (60 segundos)
+          
+        }, 5000); // Cambiar el valor cada 60000ms (60 segundos)
     
         // Asegúrate de limpiar el intervalo cuando el componente se desmonte
         return () => {
@@ -106,6 +108,10 @@ const PrincipalM = ({navigation,route}) => {
                 <Text style={{color:'white',fontWeight:'bold', fontSize:15, textAlign:'center',}}>Grupo</Text>
             </TouchableOpacity>
             <TouchableOpacity  style={ style.floatingButton2} 
+             onPress={() => {
+                navigation.navigate('nuevocontacto', {enlace: enlace, persona: persona,setEnviar});
+                setVisible(false);
+            }}
             >
                 <Image style={style.img} source={require('../styles/img/agrega.png')}/>
                 <Text style={{color:'white',fontWeight:'bold', fontSize:15, textAlign:'center',}}>Nuevo contacto</Text>
@@ -143,18 +149,7 @@ const PrincipalM = ({navigation,route}) => {
     </View>
 
     {/* Botones en la parte inferior */}
-    <View style={style.menu}>
-        <Pressable style={style.btmenu} >
-            <Text style={style.txbt}>Contactos</Text>
-        </Pressable>
-        <Pressable>
-            <Text style={style.txbt}>Chats</Text>
-        </Pressable>
-        <Pressable>
-            <Text style={style.txbt}>Llamadas</Text>
-        </Pressable>
-    
-    </View>
+  
   </View>
   )
 }
