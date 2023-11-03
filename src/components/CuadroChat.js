@@ -9,7 +9,9 @@ const CuadroChat = ({item,mensajees,idintengrant}) => {
   return (
     <View style={idintengrant===item.idintegrante?styles.message2:styles.message}>
                {/* <Text style={styles.senderName}>{idintengrant===item.idintegrante?'Yo':item.nombrepersona }</Text>*/} 
-                <Text  style={styles.senderName2}>{item.mensaje}</Text>
+                <Text  style={styles.senderName2}>
+                { item.mensaje}
+                  </Text>
                 <Text  style={styles.hora}>{item.hora}    {
                item.estadoquienleyo==1? item.estadolecturamen==='sin leer'?
               ( <Image style={[styles.imges]} source={require('../styles/img/1m.png')} />):

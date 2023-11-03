@@ -40,7 +40,7 @@ const PrincipalM = ({navigation,route}) => {
     const [enviar,setEnviar]= useState(true)
     const [visible,setVisible]=useState(false)
     const persona=codper
-  const enlace="192.168.0.4"
+  const enlace="172.16.1.144"
    
     
    

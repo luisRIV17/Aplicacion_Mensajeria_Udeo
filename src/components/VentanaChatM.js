@@ -34,7 +34,9 @@ const VentanaChatM = ({item,navigation,persona,setEnviar,enviar,enlace}) => {
                     <Image source={require('../styles/img/1.png')} style={style.imge} />
                     <View style={style.cuerpo}>
                       <Text style={style.usu}>{detalle.nombresala}</Text>
-                      <Text style={style.mensaje}>{detalle.ultimomensaje}</Text>
+                      <Text style={style.mensaje}>{
+                      detalle.ultimomensaje!=null? detalle.ultimomensaje.length > 10 ? detalle.ultimomensaje.slice(0, 20) + "..." : detalle.ultimomensaje:null
+                      }</Text>
                     </View>
                     {tipolec!=4?envia==false?cant!=0?(
                       <Pressable style={{ width: 25,justifyContent: 'center', height: 25,borderRadius:25, marginRight: 15,backgroundColor:'#66c5cb' }}>
@@ -42,8 +44,8 @@ const VentanaChatM = ({item,navigation,persona,setEnviar,enviar,enlace}) => {
                     </Pressable>
                     ):null:null:null}
                     <View>
-                      <Text style={style.hora}>{detalle.fecha}</Text>
-                      <Text style={style.hora}>{detalle.hora}</Text>
+                      <Text style={ tipolec!=4?envia==false?cant!=0?style.hora2:style.hora:style.hora:style.hora}>{detalle.fecha}</Text>
+                      <Text style={ tipolec!=4?envia==false?cant!=0?style.hora2:style.hora:style.hora:style.hora}>{detalle.hora}</Text>
                     </View>
                    
                   </TouchableOpacity>
@@ -89,7 +91,12 @@ const VentanaChatM = ({item,navigation,persona,setEnviar,enviar,enlace}) => {
           hora: {
             fontSize: 12,
             color: 'white',
-            fontWeight:'200'
+            fontWeight:'300'
+          },
+          hora2: {
+            fontSize: 12,
+            color: '#66c5cb',
+            fontWeight:'900'
           },
     })
 
