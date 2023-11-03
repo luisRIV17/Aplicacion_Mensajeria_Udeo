@@ -13,6 +13,7 @@ const FichaContac = ({item,enlace,setEnviar,persona,navigation}) => {
             nombreSala: nombresala,
             idpersonaconta:idpersona 
           }
+          console.log(datossalas)
         const url="http://"+enlace+"/inicio/insertsala"
         const respuesta=await axios.post(url,datossalas)
         const item =await respuesta.data

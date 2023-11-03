@@ -22,7 +22,7 @@ import MainStack from '../../navigation/MainStack';
 
 
 const Inicio = ({setValida,setCodPersona}) => {
-    const [token, setToken]= useState('1002');
+    const [token, setToken]= useState();
     const [modLandin, setModLandin] = useState(false)
     const [modRegistro, setModRegistro ]= useState(false)
     const [tokenValidation, setTokenValidation]= useState(false)
@@ -35,8 +35,9 @@ const Inicio = ({setValida,setCodPersona}) => {
                 if(userToken !== null ){
                     console.log(JSON.parse(userToken))
                     setTokenValidation(true);
-                    setValida(true)
                     setCodPersona(userToken)
+                    setValida(true)
+                    
                     
                 }else{
                     console.log('token not found')

@@ -18,12 +18,12 @@ const Nuevocontact = ({navigation,route}) => {
       return
     }
     const nuevocontacto={
-      idpersona: persona,
+      idpersona: persona.toString(),
       nombrealias:nombreAlias,
       correo:correo,
       telefono:telefono,
     }
-    
+    console.log(nuevocontacto) 
     const url="http://"+enlace+"/contacto/insert"
     console.log(url)  
     const respuesta=await axios.post(url,nuevocontacto)

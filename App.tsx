@@ -23,7 +23,7 @@ import Inicio from './src/components/Inicio';
 
 LogBox.ignoreAllLogs();
 function App(): JSX.Element {
-  const [codper, setCodPersona] = useState('1002');
+  const [codper, setCodPersona] = useState();
   const [valida, setValida] = useState(false);
   const [validasplash, setvalidasplash] = useState(false);
   return (
@@ -35,6 +35,7 @@ function App(): JSX.Element {
       /*<InicioProviciona setValida={setValida} setCodPersona={setCodPersona}/>*/
       <Inicio setValida={setValida} setCodPersona={setCodPersona}/>
       ):(
+        console.log("codper",codper),
         <Tabnavigation codper={codper} setValida={setValida}/>
       )}
      

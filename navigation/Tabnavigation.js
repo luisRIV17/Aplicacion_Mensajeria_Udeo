@@ -8,7 +8,7 @@ import MainStack from './MainStack';
 import ContactScreen from '../src/components/ContactScreen.js';
 
 import LlamadasScreen from '../src/components/LlamadaScreen.js';
-
+import { link } from '../navigation/globals';
 const Tab = createBottomTabNavigator();
 
 
@@ -25,7 +25,8 @@ const screenOptions = {
 };
 const Tabnavigation = ({codper,setValida}) => {
  
-  const enlace="172.16.1.144"
+  const enlace=link
+  console.log(codper)
     return (
       <NavigationContainer>
           <Tab.Navigator

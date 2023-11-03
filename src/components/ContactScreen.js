@@ -13,17 +13,33 @@ const ContactScreen = ({ navigation,route }) => {
   const [isCreateGroupVisible, setIsCreateGroupVisible] = useState(false);
   const [contacto,setContacto]= useState([])
 
-  useEffect(()=>{
+  
     const pre=async()=>{
       const url="http://"+enlace+"/contacto/listmen?idpersona="+persona
-      console.log(url)
+      
       const respuesta =await axios.get(url)
           const resultado = await respuesta.data
           setContacto(resultado)
           console.log(resultado)
     }
-   pre();
-  },[])
+   
+
+  const [valor, setValor] = useState(0);
+
+  useEffect(() => {
+    pre(); // Llamar a pre inmediatamente al cargar el componente
+    
+    const intervalId = setInterval(() => {
+       
+      pre(); // Llamar a pre a intervalos de tiempo
+      
+    }, 5000); // Cambiar el valor cada 60000ms (60 segundos)
+
+    // Asegúrate de limpiar el intervalo cuando el componente se desmonte
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, []);
 
   const showCreateGroupScreen = () => {
     setIsCreateGroupVisible(true);

@@ -31,8 +31,9 @@ const Landing = ({setModLandin,setValida,setCodPersona}) => {
           token: resultado
         }
         await AsyncStorage.setItem('token', JSON.stringify(obj.token));
-        setValida(true)
         setCodPersona(resultado)
+        setValida(true)
+        
         
       }
       else{
