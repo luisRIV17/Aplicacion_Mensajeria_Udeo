@@ -162,6 +162,58 @@ export const mst = StyleSheet.create({
    
    
     alignItems:"flex-end"
+  },
+  cardBack:{
+    flex:1,
+    alignItems:'center',
+    padding:15,
+    backgroundColor:Mycolors.dark,
+
+  },
+  imgContainer:{
+    marginVertical:20,
+    backgroundColor: Mycolors.high,
+    borderRadius: 100,
+    
+
+    padding:40,
+ 
+  },
+  datosContainer:{
+   alignItems:"center",
+   padding: 10,
+   margin:10,
+   width:200
+   
+  },
+  imgStyle:{
+    maxWidth:100,
+    maxHeight:100,
+  },
+  label1:
+  {
+    padding:2,
+    borderColor:Mycolors.high,
+    borderTopWidth:1,
+    color:Mycolors.high,
+    marginBottom:20,
+    width:250,
+    textAlign:"center",
+    fontWeight:'600'
+  },
+  label2:
+  {
+    padding:2,
+    color:'white'
+    
+  },
+  actulizarBtn:{
+    backgroundColor:Mycolors.light,
+    padding:10,
+    margin:10,
+    width:200,
+    textAlign:"center"
+  
   }
 
 })

@@ -7,11 +7,11 @@ const FichaContac = ({item,enlace,setEnviar,persona,navigation}) => {
     const [nombresala,setNombresala]=useState('')
     const crearoredirigirsala=async()=>{
        const datossalas={ 
-            idpersonacreo: persona,
+            idpersonacreo: persona.toString(),
             estadoChat: true,
             idTipoSala: 1,
             nombreSala: nombresala,
-            idpersonaconta:idpersona 
+            idpersonaconta:idpersona.toString() 
           }
           console.log(datossalas)
         const url="http://"+enlace+"/inicio/insertsala"

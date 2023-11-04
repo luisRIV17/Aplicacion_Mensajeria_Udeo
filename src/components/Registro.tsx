@@ -215,9 +215,12 @@ return (
                 onChangeText={setEmail}
                 value={email}
                 placeholderTextColor="gray"></TextInput>
+              
+              <View>
               <Text style={mst.label}>
                 Ingrese una contraseña de almenos 8 caracteres
               </Text>
+              </View>
               <TextInput
                 style={mst.inp}
                 placeholder="Contraseña"

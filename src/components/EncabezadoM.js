@@ -38,7 +38,8 @@ titulo:{
 },
 btmenu:{
     backgroundColor:'#02abbf',
-    padding:10
+    padding:10,
+    borderRadius:15
  },
  txbt:{
      fontSize:15,

@@ -24,7 +24,7 @@ const OpcionesModal = ({modOpciones, setModOpciones,setValida}) => {
         style: 'cancel',
       },
       {
-        text: 'Eliminar',
+        text: 'Aceptar',
         onPress: async () => {
           try {
             await AsyncStorage.removeItem('token');
@@ -51,6 +51,7 @@ const OpcionesModal = ({modOpciones, setModOpciones,setValida}) => {
         onPress={()=>setModOpciones(false)}>
         <View style={mst.mod}>
             <TouchableOpacity
+             onPress={()=>navigation.navigate('perfil')}
             style={mst.optionsBtn}>
                 <Text> Mi Perfil</Text>
             </TouchableOpacity>
